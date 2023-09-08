@@ -1,0 +1,5 @@
+//testing comments
+var test = 123
+"multi line 
+string
+is actually working"
