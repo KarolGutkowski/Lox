@@ -1,5 +1,20 @@
 //testing comments
 var test = 123
+
+"strings are working"
+
+
 "multi line 
 string
-is actually working"
+is actually 
+working"
+
+/* multi 
+line comment 
+data should 
+be ignored
+*/
+
+/* correct multi line comment but in one line */
+
+/* this is incorrect multi line comment 

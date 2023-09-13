@@ -85,6 +85,10 @@ namespace Lox
                         // A comment goes until the end of the line.
                         while (peek() != '\n' && !isAtEnd()) advance();
                     }
+                    else if(match('*'))
+                    {
+                        getMultLineComment();
+                    }
                     else
                     {
                         addToken(SLASH);
@@ -117,6 +121,39 @@ namespace Lox
                     }
                     break;
             }
+        }
+
+        private void getMultLineComment()
+        {
+            while((peek()!='*' || peekNext()!='/') && !isAtEnd())
+            {
+                if (peek() == '\n') line++;
+                advance();
+
+                if (isAtEnd())
+                {
+                    returnUnfinishedMutliLineCommentError();
+                    return;
+                }
+
+                if (peek() == '\n') line++;
+                advance();
+            }
+
+            if (isAtEnd())
+            {
+                returnUnfinishedMutliLineCommentError();
+                return;
+            }
+
+            advance();
+            advance();
+        }
+
+        private void returnUnfinishedMutliLineCommentError()
+        {
+            Lox.error(line, "Unclosed multiline comment (expected format /* comment */).");
+            return;
         }
 
         private void identifier()
